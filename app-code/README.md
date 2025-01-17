@@ -1,36 +1,40 @@
-## Docker File
+## Installations
 
-### Multi-stage Docker File
-* In stage 1 , we build docker image using a base image, download dependencies and application is built
-* In stage 2 or final stage, use Distroless image as base image. Distroless image reduced image and adds security
-* Copy the binary built in stage 1 and expose port and rum application
+### AWS CLI Configure
+
+### Install AWS-CLI in VM . Use any one of the commands below. 
+
+```
+sudo apt install awscli
+sudo apt-get install awscli
+sudo snap install aws-cli --classic
+aws --version
+```
+#### Configure AWS-CLI 
+
+```
+aws configure       // Provide access key ID and secrect access key details
+```
 
 
-## Deployment file
+### Kubectl Installation
 
-* deployment.yml file defines a Kubernetes deployment that will create a multiple replicas of a pod running a container based on the go-web-app Docker image.
-* In Kubernetes, a deployment.yml file is a YAML file that defines a Deployment resource. A Deployment is a Kubernetes object that manages the rollout of new versions of an application.
+Follow this link -- https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 
-Here's a breakdown of what a deployment.yml file typically contains:
+```
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+kubectl version --client
+```
 
-#### Key Components
 
-**API Version and Kind:** Specifies the version of the Kubernetes API and the type of resource being defined (in this case, a Deployment).
+### Eksctl Installation
 
-**Metadata:** Provides metadata about the Deployment, such as its name, labels, and annotations.
-
-**Spec:** Defines the desired state of the Deployment, including the container(s) to run, the number of replicas, and the strategy for rolling out updates.
-
-**Selector:** Specifies the label selector that identifies the pods managed by this Deployment.
-
-### Why Use a Deployment?
-
-#### A Deployment provides several benefits, including:
-
-**Rolling Updates:** Deployments allow you to roll out new versions of your application incrementally, reducing downtime and risk.
-
-**Self-Healing:** If a pod managed by a Deployment crashes or becomes unresponsive, the Deployment will automatically replace it with a new pod.
-
-**Scalability:** Deployments make it easy to scale your application horizontally by adding or removing replicas.
-
-**Version Management:** Deployments provide a way to manage different versions of your application, making it easier to roll back to a previous version if needed. 
+```
+udo apt update
+sudo apt install curl
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv /tmp/eksctl /usr/local/bin
+sudo chmod +x /usr/local/bin/eksctl
+eksctl version
+```
