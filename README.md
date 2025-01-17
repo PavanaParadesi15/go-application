@@ -34,7 +34,8 @@ Next containarize the application using Docker
 #### 4. Set up CD
 * Using GitOps - ArgoCD for Continuous Deployment
 #### 5. Set target K8S platform
-* CI/CD has to deploy application on a target K8s Cluster, EKS Cluster
+* CI/CD has to deploy application on a target K8s Cluster, we are using EKS Cluster .
+* Create EKS cluster through terminal
 #### 6. Setup HELM chart
 * Helm charts are one time solution if we need to deploy application onto multiple environments in future like Pre-Prod , PROD
 * We can use same Helm charts and just change values through values.yml
