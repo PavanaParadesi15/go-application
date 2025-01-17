@@ -1,15 +1,21 @@
 ## Go Web Application
 
 This is a simple website written in Golang. It uses the net/http package to serve HTTP requests.
-### Running the server
+### Running the server on a EC2 instance
 
+Clone the repository 
+To build the binary 
+```
+go build -o main .
+```
 To run the server, execute the following command:
 ```
-go run main.go
+go run main.go or ./main
 ```
-The server will start on port 8080. You can access it by navigating to http://localhost:8080/courses in your web browser.
+The server will start on port 8080. You can access it by navigating to http://ec2instanceip:8080/courses in your web browser.
 Looks like this
 
+![image](https://github.com/user-attachments/assets/943ed58b-cd3f-4126-ac9c-39431f22b180)
 
 
 
