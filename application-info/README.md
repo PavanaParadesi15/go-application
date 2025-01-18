@@ -61,7 +61,7 @@ kubectl get ing         // list the ingress created
 
 
 * Initially after creating ingress, application cannot be accessed through ingress as the address is not assigned. We need Ingress Controller which assigns address to the Ingress resource. 
-* To check is the service is working and application is accessible through the NodePort, expose the service to the NodePort mode. By default it is in "ClusterIP" mode. 
+* To check if the service is working and application is accessible through the NodePort, expose the service to the NodePort mode. By default service is in "ClusterIP" mode. 
 * Edit the service to change type from ClusterIP to NodePort
 
 ```
