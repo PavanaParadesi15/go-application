@@ -90,3 +90,38 @@ sudo iptables -A INPUT -p tcp --dport <port number> -j ACCEPT       // Adds a sp
 ```
 
 
+### Create Ingress Controller
+
+* IN AWS Nginx Ingress Controller creates Network LB
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.11.1/deploy/static/provider/aws/deploy.yaml
+```
+There are 3 parts in the Ingress
+1. Ingress resource
+2. Ingress Controller  (IC)
+3. Load Balancer      (LB)
+
+IC watches the Ingress resource and creates LB. We write a ingress resource to create LB. IC is a go program written by Load Balance company.
+IC creates LB as per the ingress resource configuration.
+
+```
+kubectl get ing      // lists the ingress resources and ingress controller
+kubectl get pods -n ingress-nginx          // lists the ingress nginx controller . -n <namespace>
+``` 
+
+
+```
+ nslookup a6ff5cc00be4f44acbcbfff8a58b0684-7485465aa5063d9e.elb.us-east-1.amazonaws.com        // To find the IP address through the DNS name created by LB
+```
+
+* Now map the IP address with the host name specified in ingress resource (ingress.yml)
+
+```
+sudo vim /etc/hosts 
+
+
+
+
+
+
