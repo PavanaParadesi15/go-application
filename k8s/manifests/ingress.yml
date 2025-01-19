@@ -2,7 +2,7 @@
 # Traffic routing is controlled by rules defined on the Ingress resource.
 # We are using Host based ingress, where we use hostname for the application. 
 
-# Ingress resource for the application
+# Ingress resource for the application , Ingress controller creates network Load Balancer in AWS for the EKS cluster
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -46,7 +46,7 @@ spec:
 # ingressClassName: specifies the name of the ingress class that this ingress resource belongs to. 
 # In this case, it's nginx, which indicates that this ingress resource will be managed by the NGINX ingress controller. the resources should be identified by Ingress Controller and it should watch fot this resource.
 # rules: specifies a list of rules that define how incoming requests should be routed to backend services.
-# host: specifies the hostname that this rule applies to. In this case, it's go-web-app.local.
+# host: specifies the hostname that this rule applies to. In this case, it's go-web-app.local. Ingress LB accepts requests only from this hostname
 # http: specifies the HTTP configuration for this rule.
 # paths: specifies a list of paths that this rule applies to.
 # path: specifies the path that this rule applies to. In this case, it's the root URL (/).
