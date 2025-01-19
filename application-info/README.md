@@ -121,7 +121,31 @@ kubectl get pods -n ingress-nginx          // lists the ingress nginx controller
 sudo vim /etc/hosts      // give NLB IP address with DNS name
 ```
 
+## Helm Installation
 
+Follow these steps
+
+```
+curl -O https://get.helm.sh/helm-v3.16.2-linux-amd64.tar.gz
+tar xvf helm-v3.16.2-linux-amd64.tar.gz
+sudo mv linux-amd64/helm /usr/local/bin
+rm helm-v3.16.2-linux-amd64.tar.gz
+rm -rf linux-amd64
+helm version
+```
+
+create a folder called 'helm' inside the project repo. Navigate to the folder helm and run below command to create helm chart
+
+```
+helm create go-web-app-chart
+```
+
+* The advantage of helm is, we can variabalize the yaml files inside helm , templates folder.
+* In the values.yml , the tag value will be dynamically updated with latest image created in CI
+* Using Argo CD , that latest image will be automatically deployed.
+
+
+ 
 
 
 
