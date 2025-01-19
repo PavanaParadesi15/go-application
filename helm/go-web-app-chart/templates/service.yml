@@ -1,0 +1,41 @@
+# In Kubernetes, a Service is a method for exposing a network application that is running as one or more Pods in your cluster.
+# Services enable network access to a set of Pods in Kubernetes.
+# In Service.yml file, the selector should match with the label we defined in pod specification in deployment.yml file.
+
+# Service for the application
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-web-app
+  labels:
+    app: go-web-app
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080    
+    protocol: TCP
+  selector:
+    app: go-web-app
+  type: ClusterIP
+
+
+
+
+
+
+# apiVersion: specifies the version of the Kubernetes API that this manifest file uses. In this case, it's v1, which is the core version of the Kubernetes API.
+# kind: specifies the type of Kubernetes resource being defined. In this case, it's a Service.
+# metadata: provides metadata about the resource being defined.
+# name: specifies the name of the Service resource. In this case, it's go-web-app.
+# labels: specifies a set of key-value pairs that can be used to identify and filter resources. In this case, there's a single label with key app and value go-web-app.
+# spec: specifies the desired state of the Service resource.
+# ports: specifies a list of ports that the service will expose.
+# port: specifies the port number that the service will expose. In this case, it's port 80.
+# targetPort: specifies the port number that the service will forward traffic to. In this case, it's port 8080, which is the port that the container is listening on.
+# targetport should be container port with which application is running
+# protocol: specifies the protocol that the service will use. In this case, it's TCP.
+# selector: specifies a label selector that identifies the pods that this service will target.
+# app: specifies the key of the label that the service will select on. In this case, it's app.
+# go-web-app: specifies the value of the label that the service will select on. In this case, it's go-web-app.
+# type: specifies the type of service that will be created.
+# ClusterIP: specifies that the service will be exposed only within the cluster, and will not be exposed externally. This is the default type of service.

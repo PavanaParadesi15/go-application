@@ -1,0 +1,56 @@
+# Ingress exposes HTTP and HTTPS routes from outside the cluster to services within the cluster. 
+# Traffic routing is controlled by rules defined on the Ingress resource.
+# We are using Host based ingress, where we use hostname for the application. 
+
+# Ingress resource for the application , Ingress controller creates network Load Balancer in AWS for the EKS cluster
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: go-web-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: go-web-app.local
+    http:
+      paths: 
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: go-web-app
+            port:
+              number: 80
+
+
+
+
+
+
+
+
+
+# apiVersion: specifies the version of the Kubernetes API that this manifest file uses. In this case, it's networking.k8s.io/v1, which is the version for the Ingress resource.
+# kind: specifies the type of Kubernetes resource being defined. In this case, it's an Ingress.
+# metadata: provides metadata about the resource being defined.
+# name: specifies the name of the Ingress resource. In this case, it's go-web-app.
+
+# annotations: specifies a set of key-value pairs that provide additional metadata about the resource. 
+# In this case, there's a single annotation with key " nginx.ingress.kubernetes.io/rewrite-target: / "
+# This annotation is specific to the NGINX ingress controller . 
+# This annotation tells the NGINX Ingress Controller to rewrite the URL path for incoming requests to target the root URL (/) of the backend service.
+# Example : If the incoming request URL is http://example.com/some-path, the path portion (/some-path) is rewritten to / when it reaches the backend.
+
+# spec: specifies the desired state of the Ingress resource.
+# ingressClassName: specifies the name of the ingress class that this ingress resource belongs to. 
+# In this case, it's nginx, which indicates that this ingress resource will be managed by the NGINX ingress controller. the resources should be identified by Ingress Controller and it should watch fot this resource.
+# rules: specifies a list of rules that define how incoming requests should be routed to backend services.
+# host: specifies the hostname that this rule applies to. In this case, it's go-web-app.local. Ingress LB accepts requests only from this hostname
+# http: specifies the HTTP configuration for this rule.
+# paths: specifies a list of paths that this rule applies to.
+# path: specifies the path that this rule applies to. In this case, it's the root URL (/).
+# pathType: specifies the type of path matching that should be used. In this case, it's Prefix, which indicates that this rule should match any URL that starts with the specified path.
+# backend: specifies the backend service that this rule should route traffic to.
+# service: specifies the name of the backend service. In this case, it's go-web-app.
+# port: specifies the port number that the backend service is listening on. In this case, it's port 80.

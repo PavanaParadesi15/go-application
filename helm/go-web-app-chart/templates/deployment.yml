@@ -1,0 +1,52 @@
+# This is a deployment manifest file for a simple web application.
+# The deployment creates a single replica of the web application.
+# The web application is a simple Go web application that listens on port 8080.
+
+ 
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: go-web-app
+  labels:
+    app: go-web-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-web-app
+  template:
+    metadata:
+      labels:
+        app: go-web-app
+    spec:
+      containers:
+      - name: go-web-app
+        image: pavanap5/go-web-app:v1
+        ports:
+        - containerPort: 8080
+
+
+
+# apiVersion: specifies the version of the Kubernetes API that this manifest file uses. In this case, it's apps/v1, which is the version for the Deployment resource.
+# kind: specifies the type of Kubernetes resource being defined. In this case, it's a Deployment.
+# metadata: provides metadata about the resource being defined.
+# name: specifies the name of the Deployment resource. In this case, it's go-web-app.
+# labels: specifies a set of key-value pairs that can be used to identify and filter resources. In this case, there's a single label with key app and value go-web-app.
+# K8s service discovery happens with the labels and selectors 
+
+# spec: specifies the desired state of the resource being defined. 
+# replicas: specifies the number of replicas (i.e., copies) of the application that should be running. In this case, it's set to 1, meaning that only one replica will be running.
+# selector: specifies a label selector that identifies the pods that this deployment manages. In this case, it's set to match pods with the label app: go-web-app.
+
+# template: specifies a template for the pods that this deployment will create.
+# metadata: provides metadata about the pods that will be created.
+# labels: specifies the labels that will be applied to the pods. In this case, it's the same label as specified in the selector section.
+
+# spec: specifies the configuration for the container(s) that will run in the pod.
+# containers: specifies a list of containers that will run in the pod. In this case, there's only one container.
+# name: specifies the name of the container. In this case, it's go-web-app.
+# image: specifies the Docker image that will be used to create the container. In this case, it's an image named go-web-app from the Docker Hub repository of the user <docker-user-name>.
+# ports: specifies a list of ports that the container will expose. In this case, there's only one port, 8080, which is the port that the container will listen on.
+
+# Overall, this deployment.yml file defines a Kubernetes deployment that will create a single replica of a pod running a container based on the go-web-app Docker image. 
+# The container will expose port 8080 and will be labeled with the key-value pair app: go-web-app  
