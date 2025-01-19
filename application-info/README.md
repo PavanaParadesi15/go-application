@@ -118,8 +118,8 @@ kubectl get pods -n ingress-nginx          // lists the ingress nginx controller
 * Now map the IP address with the host name specified in ingress resource (ingress.yml)
 
 ```
-sudo vim /etc/hosts 
-
+sudo vim /etc/hosts      // give NLB IP address with DNS name
+```
 
 
 
