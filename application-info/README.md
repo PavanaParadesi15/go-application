@@ -144,7 +144,10 @@ helm create go-web-app-chart
 * In the values.yml , the tag value will be dynamically updated with latest image created in CI
 * Using Argo CD , that latest image will be automatically deployed.
 
-
+### Install helm chart 
+```
+helm install go-web-app ./go-web-app-chart
+```
  
 
 
