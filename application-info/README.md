@@ -148,6 +148,89 @@ helm create go-web-app-chart
 ```
 helm install go-web-app ./go-web-app-chart
 ```
+* This command is used to install a Helm chart, which is a package manager for Kubernetes.
+Here's what each part of the command does:
+
+**helm install**
+* helm is the command-line tool for Helm. install is the subcommand that installs a new release from a chart.
+
+**go-web-app**
+* This is the name of the release that will be created. In Helm, a release is an instance of a chart that has been installed on a Kubernetes cluster.
+
+**./go-web-app-chart**
+* This is the path to the Helm chart that will be installed. The ./ indicates that the chart is located in the current working directory.
+* go-web-app-chart is the name of the chart directory, which contains the chart's configuration files, templates, and other resources.
+
+**What happens when you run the command?**
+When you run **helm install go-web-app ./go-web-app-chart**, Helm will:
+
+* **Validate the chart**: Helm will check the chart's configuration files and templates for errors.
+* **Create a new release**: Helm will create a new release named go-web-app in the Kubernetes cluster.
+* **Install the chart**: Helm will install the chart's resources, such as deployments, services, and pods, into the Kubernetes cluster.
+* **Configure the release**: Helm will configure the release with the values specified in the chart's values.yaml file.
+
+After the installation is complete, you can verify the status of the release using 
+```
+helm status go-web-app
+```
+Once helm chart created release "go-web-app" , then we can get the kubernetes resources created using the below commands
+
+```
+kubectl get all
+kubectl get deploy
+kubectl get svc
+kubectl get pods
+kubectl get ing
+```
+
+#### Delete Helm reosurces
+```
+helm uninstall go-web-app          // deletes the helm resources
+```
+
+
+
+## CI Part 
+CI/CD -- When a developer commits a change/creates a PR, the CI/CD Pipeline is triggered. As part of CI, we will run multiple stages 
+Now implementing CI using Github Actions
+Its done in multiple stages 
+1. Build & Test stage
+2. Static Code analysis
+3. Create Docker image and push docker image to Docker registry
+4. Update Helm chart with docker image tag. In values.yaml file in Helm , image tag is automatically updated whenever new image is created
+
+Before starting the CI pipeline in github actions, 
+* Create a folder ".github/workflows" 
+* Create a file - ci.yaml
+Write work flow code
+
+Use below github actions Marketplace documentation to write cicd.yaml file github actions
+#### https://github.com/marketplace
+
+**Steps to provide secrets of dockerhub in Github for login to dockerhub to push the image**
+* github repo page -> Setting -> Secrets and Variables -> Actions -> New Repository secrets -> Add secret Name as 'DOCKERHUB_USERNAME' , give dockerhub username into the Secret .
+* Give DOCKERHUB_TOKEN -> Copy the secret token from DockerHub
+
+**To generate Dockerhub token **
+* Login to Dockerhub -> Account Settings -> Personal Access Tokens -> Generate new Token -> Give token description -> Give Access permissions as 'Read&Write' ->Generate -> Copy and paste token in Github actions Secrets 
+
+* Using these dockerhub username and token, the updated docker image is pushed to dockerhub
+
+* Once the values.yaml file in helm chart is updated with the new image tag, then the updated helm chart is pushed back to github repository. For that we need github secrect token.
+To generate github secret token --> go to github repo -> setting -> secrets and variable -> New repository secret -> Give name as 'TOKEN' , Give github Personal Access Token' 
+
+To generate Github Personal Access Token  
+--> github -> Setting -> Developer Setting -> Personal access tokens ->  Tokens(classic) -> Generate new token (classic) 
+
+
+
+
+## CD Part
+For CD part , I am using GitOps using Argo CD
+1. Argo CD pulls Helm chart and deploys it to K8S Cluster (EKS) . If helm chart is already there, Argo CD updates the image with new tag created.
+
+
+
  
 
 
