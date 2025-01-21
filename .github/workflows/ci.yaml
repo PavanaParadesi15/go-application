@@ -54,7 +54,7 @@ jobs:
     - name: Run golangci-lint
       uses: golangci/golangci-lint-action@v6
       with:
-        version: v1.56.2
+        version: 'latest'
   
   # Stage to build the docker image and push it to the registry
   # This is build stage 3.
