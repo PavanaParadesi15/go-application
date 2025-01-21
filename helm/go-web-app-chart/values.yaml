@@ -8,7 +8,7 @@ image:
   repository: pavanap5/go-web-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1"
+  tag: "12882973154"
 
 ingress:
   enabled: false
