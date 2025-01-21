@@ -103,7 +103,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.TOKEN }}
         repository: PavanaParadesi15/go-application
           # ssh-strict: true
           # ssh-user: git
