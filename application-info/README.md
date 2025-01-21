@@ -222,12 +222,54 @@ To generate github secret token --> go to github repo -> setting -> secrets and 
 To generate Github Personal Access Token  
 --> github -> Setting -> Developer Setting -> Personal access tokens ->  Tokens(classic) -> Generate new token (classic) 
 
+Put this PAT token in the repo settings -> secrets and variable -> New repository secret -> Give name as 'TOKEN' , Give github Personal Access Token' 
 
+In the CI part , once the code is pushed to github repo, then the github actions pipeline starts with 4 stages 
+1. Build
+2. Code quality
+3. Push docker image
+4. Update new tag in helm chart 
+
+Once all the stages are successful, then the docker image with the actions id is pushed to docker hub and the image tag is updated in values.yaml in helm in the github repo.
 
 
 ## CD Part
 For CD part , I am using GitOps using Argo CD
 1. Argo CD pulls Helm chart and deploys it to K8S Cluster (EKS) . If helm chart is already there, Argo CD updates the image with new tag created.
+
+## Install Argo CD
+
+### Install Argo CD using manifests
+
+```bash
+kubectl create namespace argocd
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
+
+### Access the Argo CD UI (Loadbalancer service) 
+* Expose the ArgoCD service to access the user interface. Create service of Type Load Balancer
+
+```bash
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+kubectl get svc -n argocd           // to check the services with 'argocd namespace'
+ 
+```
+
+### Access the Argo CD UI (Loadbalancer service) -For Windows
+
+```bash
+kubectl patch svc argocd-server -n argocd -p '{\"spec\": {\"type\": \"LoadBalancer\"}}'
+```
+
+### Get the Loadbalancer service IP
+
+```bash
+kubectl get svc argocd-server -n argocd
+```
+
+ArgoCD UI can be accessed with LB hostname or through ExternalIP of one of the node with service port number. externalIP:portnumber 
+
 
 
 
