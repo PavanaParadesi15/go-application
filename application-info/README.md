@@ -271,6 +271,32 @@ kubectl get svc argocd-server -n argocd
 ArgoCD UI can be accessed with LB hostname or through ExternalIP of one of the node with service port number. externalIP:portnumber 
 
 
+### Note : 
+Security Group Configuration
+* If you're running your EKS cluster on AWS, you might need to configure the security group rules to allow incoming traffic to the NodePort.
+* Verify that the security group associated with your EKS cluster allows incoming traffic on the NodePort number.
+
+Command to get the node external ip
+
+```
+kubectl get nodes -o wide
+kubectl get svc -n argocd               // command to get service port number for the argocd 
+```
+
+Argocd UI username is "admin"
+To get the password use below commands
+
+```
+kubectl get secret -n argocd           // lists the secret in argocd namespace
+kubectl edit secret argocd-initial-admin-secret -n argocd
+echo "initialpassword" | base64 --decode               // To decode the password to base64
+```
+
+Login to Argo CD UI. Argocd is also on the same EKS cluster
+* Create new app with all the detials
+
+
+
 
 
  
