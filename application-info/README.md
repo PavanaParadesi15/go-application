@@ -295,6 +295,8 @@ echo "initialpassword" | base64 --decode               // To decode the password
 Login to Argo CD UI. Argocd is also on the same EKS cluster
 * Create new app with all the detials
 
+* Once application is deployed on to EKS cluster, LB does the domain name mapping and the Application can be accessed on " go-web-app.local/courses"
+
 
 
 
